@@ -1,13 +1,11 @@
-<!-- save as game.html -->
+<!--save as html file-->
 <html dir="auto">
 
 <head>
   <link rel="icon" type="image/png" href="favicon.png">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>game</title>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
 
 body {
   margin: 0;
@@ -27,20 +25,20 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(ellipse at center, #000000 0%, #121212 100%), url('hospital_dark_bg.png');
-  background-size: cover;
+  background: url('hospital_dark_bg.png') center center / cover no-repeat,
+              radial-gradient(ellipse at center, #000000 0%, #121212 100%);
   background-attachment: fixed;
   z-index: -2;
   animation: bgScroll 30s linear infinite;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 @keyframes bgScroll {
   0% {
-    background-position: 0% 0%;
+    background-position: center 0%;
   }
   100% {
-    background-position: 0% 100%;
+    background-position: center 100%;
   }
 }
 
@@ -99,10 +97,15 @@ a:hover {
     opacity: 0.4;
   }
 }
+
   </style>
   <script>
-     var embedDat = "%7B%22START%22:%5B%5D,%22SENIORDOC%22:%5B%5B%22I%20can't%20believe%20there%20is%20a%20private%20investigation%20right%20now%20looking%20into%20the%20death%20of%20the%20junior%20physician%20that%20I%20use%20to%20work%20with.%20Wasn't%20it%20deemed%20a%20suicide%20by%20the%20police?%20I'm%20now%20forced%20to%20take%20time%20off%20work%20for%20this%20stupid%20case.%20I%20already%20don't%20get%20payed%20enough%20even%20though%20I'm%20the%20senior%20doctor.%20Speaking%20of%20pay,%20I%20remember%20the%20time%20I%20caught%20the%20nurse%20pocketing%20medicine%20in%20the%20surgery%20room.%20Maybe%20I%20can%20force%20them%20into%20giving%20me%20a%20cut%20of%20their%20profits%20because%20originally%20I%20let%20it%20slide.%20Maybe%20now%20I%20can%20reap%20the%20benefits%20of%20my%20patience.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Message%20the%20nurse%22,%22NURSER1%22%5D,%5B%22%22%5D,%5B%22Don't%20message%20the%20nurse%22,%22NURSER2%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22SENIORDOC%22,%22NURSER1%22:%5B%5B%22I%20demanded%20a%20portion%20of%20the%20profits%20from%20the%20smuggled%20drugs,%20and%20if%20they%20didn't%20comply%20I%20would%20report%20them%20to%20the%20department%20heads.%20When%20the%20nurse%20got%20back%20to%20me%20they%20tried%20reasoning%20with%20me,%20but%20I%20was%20stern%20with%20my%20demands.%20They%20inevitably%20complied,%20and%20now%20I%20have%20an%20additional%20source%20of%20income%20as%20long%20as%20the%20nurse's%20actions%20aren't%20uncovered%20by%20anyone%20else.%20Although%20I%20still%20don't%20understand%20why%20this%20whole%20investigation%20is%20happening.%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22NURSER2%22:%5B%5B%22I%20decided%20otherwise,%20and%20just%20made%20my%20way%20home%20wondering%20why%20the%20whole%20investigation%20was%20ever%20happening.%20I'm%20the%20senior%20physician%20at%20the%20hospital,%20they%20need%20me%20to%20help%20make%20decisions%20on%20matters.%20It%20doesn't%20make%20any%20sense%20to%20allow%20for%20me%20to%20get%20pulled%20out%20for%20an%20investigation.%20Maybe%20someone%20is%20trying%20to%20cover%20their%20trails%20by%20leading%20another%20party%20in%20a%20different%20direction%20and%20I'm%20just%20caught%20in%20the%20cross%20fire?%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Senior%20Doctor's%20Office%20for%20your%20tableau.%22%5D%5D%7D";
+
+    var embedDat = "%7B%22START%22:%5B%5D,%22SENIORDOC%22:%5B%5B%22I%20can't%20believe%20there%20is%20a%20private%20investigation%20right%20now%20looking%20into%20the%20death%20of%20the%20junior%20physician%20that%20I%20use%20to%20work%20with.%20Wasn't%20it%20deemed%20a%20suicide%20by%20the%20police?%20I'm%20now%20forced%20to%20take%20time%20off%20work%20for%20this%20stupid%20case.%20I%20already%20don't%20get%20payed%20enough%20even%20though%20I'm%20the%20senior%20doctor.%20Speaking%20of%20pay,%20I%20remember%20the%20time%20I%20caught%20the%20nurse%20pocketing%20medicine%20in%20the%20surgery%20room.%20Maybe%20I%20can%20force%20them%20into%20giving%20me%20a%20cut%20of%20their%20profits%20because%20originally%20I%20let%20it%20slide.%20Maybe%20now%20I%20can%20reap%20the%20benefits%20of%20my%20patience.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Message%20the%20nurse%22,%22NURSER1%22%5D,%5B%22%22%5D,%5B%22Don't%20message%20the%20nurse%22,%22NURSER2%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22SENIORDOC%22,%22NURSER1%22:%5B%5B%22I%20demanded%20a%20portion%20of%20the%20profits%20from%20the%20smuggled%20drugs,%20and%20if%20they%20didn't%20comply%20I%20would%20report%20them%20to%20the%20department%20heads.%20When%20the%20nurse%20got%20back%20to%20me%20they%20tried%20reasoning%20with%20me,%20but%20I%20was%20stern%20with%20my%20demands.%20They%20inevitably%20complied,%20and%20now%20I%20have%20an%20additional%20source%20of%20income%20as%20long%20as%20the%20nurse's%20actions%20aren't%20uncovered%20by%20anyone%20else.%20Although%20I%20still%20don't%20understand%20why%20this%20whole%20investigation%20is%20happening.%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22NURSER2%22:%5B%5B%22I%20decided%20otherwise,%20and%20just%20made%20my%20way%20home%20wondering%20why%20the%20whole%20investigation%20was%20ever%20happening.%20I'm%20the%20senior%20physician%20at%20the%20hospital,%20they%20need%20me%20to%20help%20make%20decisions%20on%20matters.%20It%20doesn't%20make%20any%20sense%20to%20allow%20for%20me%20to%20get%20pulled%20out%20for%20an%20investigation.%20Maybe%20someone%20is%20trying%20to%20cover%20their%20trails%20by%20leading%20another%20party%20in%20a%20different%20direction%20and%20I'm%20just%20caught%20in%20the%20cross%20fire?%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Senior%20Doctor's%20Office%20for%20your%20tableau.%22%5D%5D%7D";
+
     var gameState = null;
+
+
     var aurl = document.createElement('a');
     function qualifyURL(url) {
       aurl.href = url;
@@ -126,10 +129,12 @@ a:hover {
         return "";
       }
       var param = getParameterByName("section");
+
       var result = "__STARTSECTION__" in gameState ? gameState["__STARTSECTION__"] : "START";
       if (param.length > 0) {
         result = param;
       }
+
       return result;
     }
 
@@ -149,17 +154,23 @@ a:hover {
       }
 
       var githubURL = 'https://api.github.com/gists/' + id;
+
       var githubHTTPClient = new XMLHttpRequest();
       githubHTTPClient.open('GET', githubURL);
       githubHTTPClient.onreadystatechange = function () {
-        if (githubHTTPClient.readyState != 4) return;
+        if (githubHTTPClient.readyState != 4) {
+          return;
+        }
         var result = JSON.parse(githubHTTPClient.responseText);
         if (githubHTTPClient.status === 403) {
           console.log(result.message);
         } else if (githubHTTPClient.status !== 200 && githubHTTPClient.status !== 201) {
           console.log("HTTP Error " + githubHTTPClient.status + ' - ' + githubHTTPClient.statusText);
         }
+        var result = JSON.parse(githubHTTPClient.responseText);
         var code = result["files"]["game.txt"]["content"];
+        console.log(code);
+
         gameState = JSON.parse(code);
         goTo(startSection());
       }
@@ -170,6 +181,14 @@ a:hover {
     }
 
     function escapeHtmlEntities(str) {
+      if (typeof jQuery !== 'undefined') {
+        // Create an empty div to use as a container,
+        // then put the raw text in and get the HTML
+        // equivalent out.
+        return jQuery('<div/>').text(str).html();
+      }
+
+      // No jQuery, so use string replace.
       return str
         .replace(/&/g, '&amp;')
         .replace(/>/g, '&gt;')
@@ -178,7 +197,9 @@ a:hover {
     }
 
     function goTo(targetState) {
-      if (gameState == null) return;
+      if (gameState == null) {
+        return;
+      }
       var curstate = gameState[targetState];
       var gameArea = document.getElementById("gameArea");
       var str = "";
@@ -192,10 +213,11 @@ a:hover {
       }
       gameArea.innerHTML = str;
     }
+
   </script>
 </head>
 
-<body onload="init();">
+<body onload="init();" dir="auto">
   <div id="gameArea" dir="auto"></div>
 </body>
 

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
   <style>
-<!-- style.css -->
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
 
 body {
@@ -27,20 +26,20 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(ellipse at center, #000000 0%, #121212 100%), url('hospital_dark_bg.png');
-  background-size: cover;
+  background: url('hospital_dark_bg.png') center center / cover no-repeat,
+              radial-gradient(ellipse at center, #000000 0%, #121212 100%);
   background-attachment: fixed;
   z-index: -2;
   animation: bgScroll 30s linear infinite;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 @keyframes bgScroll {
   0% {
-    background-position: 0% 0%;
+    background-position: center 0%;
   }
   100% {
-    background-position: 0% 100%;
+    background-position: center 100%;
   }
 }
 
@@ -99,7 +98,6 @@ a:hover {
     opacity: 0.4;
   }
 }
-
 </style>
 
 </head>
@@ -109,4 +107,5 @@ a:hover {
 </body>
 
 </html>
+
 

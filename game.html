@@ -4,8 +4,13 @@
 <head>
   <link rel="icon" type="image/png" href="favicon.png">
   <title>game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+html {
+  font-size: 18px;
+}
 
 body {
   margin: 0;
@@ -18,6 +23,52 @@ body {
   cursor: url('crosshair.cur'), crosshair;
 }
 
+/* Headline style */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #ff4d4f;
+  text-shadow: 0 0 10px #ff4d4f;
+}
+
+/* Main game area */
+#gameArea {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 2rem auto;
+  max-width: 800px;
+  background: rgba(20, 20, 20, 0.85);
+  padding: 2rem;
+  border: 3px solid #ff4d4f;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #b80000;
+  color: #f8f8f8;
+  backdrop-filter: blur(6px);
+}
+
+/* Interactive links */
+a {
+  display: inline-block;
+  margin: 1rem 0.5rem;
+  font-size: 1rem;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  background-color: #b30000;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 0 10px #ff1a1a;
+}
+
+/* Hover effect */
+a:hover {
+  background-color: #e60000;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff4d4f;
+}
+
+/* Background scroll animation */
 body::before {
   content: "";
   position: fixed;
@@ -33,79 +84,49 @@ body::before {
   opacity: 0.9;
 }
 
-@keyframes bgScroll {
-  0% {
-    background-position: center 0%;
-  }
-  100% {
-    background-position: center 100%;
-  }
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #ff4d4f;
-  text-shadow: 0 0 10px #ff4d4f;
-}
-
-#gameArea {
-  font-size: 18px;
-  line-height: 1.8;
-  margin: 2rem auto;
-  max-width: 800px;
-  background: rgba(20, 20, 20, 0.85);
-  padding: 2rem;
-  border: 3px solid #ff4d4f;
-  border-radius: 10px;
-  box-shadow: 0 0 30px #b80000;
-  font-family: 'Quicksand', sans-serif;
-  color: #f8f8f8;
-  position: relative;
-  backdrop-filter: blur(6px);
-}
-
-a {
-  display: inline-block;
-  margin: 1rem 0.5rem;
-  font-size: 14px;
-  font-family: 'Press Start 2P', cursive;
-  color: #fff;
-  background-color: #b30000;
-  padding: 0.8rem 1.2rem;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 0 10px #ff1a1a;
-}
-
-a:hover {
-  background-color: #e60000;
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #ff4d4f;
-}
-
+/* Flicker animation */
 .flicker {
   animation: flicker 1.5s infinite;
 }
 
 @keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
-    opacity: 1;
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+
+@keyframes bgScroll {
+  0% { background-position: center 0%; }
+  100% { background-position: center 100%; }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  html {
+    font-size: 10px; /* ↑ Larger base font size for scaling */
   }
-  20%, 24%, 55% {
-    opacity: 0.4;
+
+  #gameArea {
+    font-size: 1.2rem; /* ↑ Bigger paragraph text inside game area */
+    padding: 1.6rem;    /* ↑ Extra space for breathing room */
+  }
+
+  a {
+    font-size: 1rem;           /* ↑ Link text size */
+    padding: 1rem 1.5rem;      /* ↑ More tappable button size */
+    line-height: 1.4;
+  }
+
+  h1 {
+    font-size: 2.2rem;         /* ↑ Headline size */
   }
 }
 
+
   </style>
-  <script>
-
-    var embedDat = "%7B%22START%22:%5B%5D,%22SENIORDOC%22:%5B%5B%22I%20can't%20believe%20there%20is%20a%20private%20investigation%20right%20now%20looking%20into%20the%20death%20of%20the%20junior%20physician%20that%20I%20use%20to%20work%20with.%20Wasn't%20it%20deemed%20a%20suicide%20by%20the%20police?%20I'm%20now%20forced%20to%20take%20time%20off%20work%20for%20this%20stupid%20case.%20I%20already%20don't%20get%20payed%20enough%20even%20though%20I'm%20the%20senior%20doctor.%20Speaking%20of%20pay,%20I%20remember%20the%20time%20I%20caught%20the%20nurse%20pocketing%20medicine%20in%20the%20surgery%20room.%20Maybe%20I%20can%20force%20them%20into%20giving%20me%20a%20cut%20of%20their%20profits%20because%20originally%20I%20let%20it%20slide.%20Maybe%20now%20I%20can%20reap%20the%20benefits%20of%20my%20patience.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Message%20the%20nurse%22,%22NURSER1%22%5D,%5B%22%22%5D,%5B%22Don't%20message%20the%20nurse%22,%22NURSER2%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22SENIORDOC%22,%22NURSER1%22:%5B%5B%22I%20demanded%20a%20portion%20of%20the%20profits%20from%20the%20smuggled%20drugs,%20and%20if%20they%20didn't%20comply%20I%20would%20report%20them%20to%20the%20department%20heads.%20When%20the%20nurse%20got%20back%20to%20me%20they%20tried%20reasoning%20with%20me,%20but%20I%20was%20stern%20with%20my%20demands.%20They%20inevitably%20complied,%20and%20now%20I%20have%20an%20additional%20source%20of%20income%20as%20long%20as%20the%20nurse's%20actions%20aren't%20uncovered%20by%20anyone%20else.%20Although%20I%20still%20don't%20understand%20why%20this%20whole%20investigation%20is%20happening.%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22NURSER2%22:%5B%5B%22I%20decided%20otherwise,%20and%20just%20made%20my%20way%20home%20wondering%20why%20the%20whole%20investigation%20was%20ever%20happening.%20I'm%20the%20senior%20physician%20at%20the%20hospital,%20they%20need%20me%20to%20help%20make%20decisions%20on%20matters.%20It%20doesn't%20make%20any%20sense%20to%20allow%20for%20me%20to%20get%20pulled%20out%20for%20an%20investigation.%20Maybe%20someone%20is%20trying%20to%20cover%20their%20trails%20by%20leading%20another%20party%20in%20a%20different%20direction%20and%20I'm%20just%20caught%20in%20the%20cross%20fire?%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Senior%20Doctor's%20Office%20for%20your%20tableau.%22%5D%5D%7D";
-
+   <script>
+    // [All your existing JavaScript is unchanged here...]
+     var embedDat = "%7B%22START%22:%5B%5D,%22SENIORDOC%22:%5B%5B%22I%20can't%20believe%20there%20is%20a%20private%20investigation%20right%20now%20looking%20into%20the%20death%20of%20the%20junior%20physician%20that%20I%20use%20to%20work%20with.%20Wasn't%20it%20deemed%20a%20suicide%20by%20the%20police?%20I'm%20now%20forced%20to%20take%20time%20off%20work%20for%20this%20stupid%20case.%20I%20already%20don't%20get%20payed%20enough%20even%20though%20I'm%20the%20senior%20doctor.%20Speaking%20of%20pay,%20I%20remember%20the%20time%20I%20caught%20the%20nurse%20pocketing%20medicine%20in%20the%20surgery%20room.%20Maybe%20I%20can%20force%20them%20into%20giving%20me%20a%20cut%20of%20their%20profits%20because%20originally%20I%20let%20it%20slide.%20Maybe%20now%20I%20can%20reap%20the%20benefits%20of%20my%20patience.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Message%20the%20nurse%22,%22NURSER1%22%5D,%5B%22%22%5D,%5B%22Don't%20message%20the%20nurse%22,%22NURSER2%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22SENIORDOC%22,%22NURSER1%22:%5B%5B%22I%20demanded%20a%20portion%20of%20the%20profits%20from%20the%20smuggled%20drugs,%20and%20if%20they%20didn't%20comply%20I%20would%20report%20them%20to%20the%20department%20heads.%20When%20the%20nurse%20got%20back%20to%20me%20they%20tried%20reasoning%20with%20me,%20but%20I%20was%20stern%20with%20my%20demands.%20They%20inevitably%20complied,%20and%20now%20I%20have%20an%20additional%20source%20of%20income%20as%20long%20as%20the%20nurse's%20actions%20aren't%20uncovered%20by%20anyone%20else.%20Although%20I%20still%20don't%20understand%20why%20this%20whole%20investigation%20is%20happening.%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22NURSER2%22:%5B%5B%22I%20decided%20otherwise,%20and%20just%20made%20my%20way%20home%20wondering%20why%20the%20whole%20investigation%20was%20ever%20happening.%20I'm%20the%20senior%20physician%20at%20the%20hospital,%20they%20need%20me%20to%20help%20make%20decisions%20on%20matters.%20It%20doesn't%20make%20any%20sense%20to%20allow%20for%20me%20to%20get%20pulled%20out%20for%20an%20investigation.%20Maybe%20someone%20is%20trying%20to%20cover%20their%20trails%20by%20leading%20another%20party%20in%20a%20different%20direction%20and%20I'm%20just%20caught%20in%20the%20cross%20fire?%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Senior%20Doctor's%20Office%20for%20your%20tableau.%22%5D%5D%7D";
     var gameState = null;
-
-
     var aurl = document.createElement('a');
     function qualifyURL(url) {
       aurl.href = url;
@@ -129,12 +150,10 @@ a:hover {
         return "";
       }
       var param = getParameterByName("section");
-
       var result = "__STARTSECTION__" in gameState ? gameState["__STARTSECTION__"] : "START";
       if (param.length > 0) {
         result = param;
       }
-
       return result;
     }
 
@@ -154,23 +173,17 @@ a:hover {
       }
 
       var githubURL = 'https://api.github.com/gists/' + id;
-
       var githubHTTPClient = new XMLHttpRequest();
       githubHTTPClient.open('GET', githubURL);
       githubHTTPClient.onreadystatechange = function () {
-        if (githubHTTPClient.readyState != 4) {
-          return;
-        }
+        if (githubHTTPClient.readyState != 4) return;
         var result = JSON.parse(githubHTTPClient.responseText);
         if (githubHTTPClient.status === 403) {
           console.log(result.message);
         } else if (githubHTTPClient.status !== 200 && githubHTTPClient.status !== 201) {
           console.log("HTTP Error " + githubHTTPClient.status + ' - ' + githubHTTPClient.statusText);
         }
-        var result = JSON.parse(githubHTTPClient.responseText);
         var code = result["files"]["game.txt"]["content"];
-        console.log(code);
-
         gameState = JSON.parse(code);
         goTo(startSection());
       }
@@ -181,14 +194,6 @@ a:hover {
     }
 
     function escapeHtmlEntities(str) {
-      if (typeof jQuery !== 'undefined') {
-        // Create an empty div to use as a container,
-        // then put the raw text in and get the HTML
-        // equivalent out.
-        return jQuery('<div/>').text(str).html();
-      }
-
-      // No jQuery, so use string replace.
       return str
         .replace(/&/g, '&amp;')
         .replace(/>/g, '&gt;')
@@ -197,9 +202,7 @@ a:hover {
     }
 
     function goTo(targetState) {
-      if (gameState == null) {
-        return;
-      }
+      if (gameState == null) return;
       var curstate = gameState[targetState];
       var gameArea = document.getElementById("gameArea");
       var str = "";
@@ -213,8 +216,8 @@ a:hover {
       }
       gameArea.innerHTML = str;
     }
-
   </script>
+
 </head>
 
 <body onload="init();" dir="auto">

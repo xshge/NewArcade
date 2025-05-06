@@ -5,6 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  color: #e3e3e3;
+  padding: 2rem;
+  text-align: center;
+  background: #000;
+  overflow: hidden;
+  cursor: url('crosshair.cur'), crosshair;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('hospital_dark_bg.png') center center / cover no-repeat,
+              radial-gradient(ellipse at center, #000000 0%, #121212 100%);
+  background-attachment: fixed;
+  z-index: -2;
+  animation: bgScroll 30s linear infinite;
+  opacity: 0.9;
+}
+
+@keyframes bgScroll {
+  0% {
+    background-position: center 0%;
+  }
+  100% {
+    background-position: center 100%;
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ff4d4f;
+  text-shadow: 0 0 10px #ff4d4f;
+}
+
+#gameArea {
+  font-size: 18px;
+  line-height: 1.8;
+  margin: 2rem auto;
+  max-width: 800px;
+  background: rgba(20, 20, 20, 0.85);
+  padding: 2rem;
+  border: 3px solid #ff4d4f;
+  border-radius: 10px;
+  box-shadow: 0 0 30px #b80000;
+  font-family: 'Quicksand', sans-serif;
+  color: #f8f8f8;
+  position: relative;
+  backdrop-filter: blur(6px);
+}
+
+a {
+  display: inline-block;
+  margin: 1rem 0.5rem;
+  font-size: 14px;
+  font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  background-color: #b30000;
+  padding: 0.8rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 0 10px #ff1a1a;
+}
+
+a:hover {
+  background-color: #e60000;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff4d4f;
+}
+
+.flicker {
+  animation: flicker 1.5s infinite;
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -13,3 +108,5 @@
 </body>
 
 </html>
+
+

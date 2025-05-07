@@ -5,12 +5,147 @@
       type="image/png" 
       href="favicon.png">
 <title>game</title>
-<style>
-	body {
-		margin:40px;
-		padding:40px;
-	}
-</style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: #e3e3e3;
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+      cursor: url('crosshair.cur'), crosshair;
+    }
+
+    /* Headline style */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d4f;
+      text-shadow: 0 0 10px #ff4d4f;
+    }
+
+    /* Main game area */
+    #gameArea {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(20, 20, 20, 0.85);
+      padding: 2rem;
+      border: 3px solid #ff4d4f;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #b80000;
+      color: #f8f8f8;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Interactive links */
+    a {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      font-size: 1rem;
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      background-color: #b30000;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 10px #ff1a1a;
+    }
+
+    /* Hover effect */
+    a:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff4d4f;
+    }
+
+    /* Background scroll animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hospital_dark_bg.png') center center / cover no-repeat,
+        radial-gradient(ellipse at center, #000000 0%, #121212 100%);
+      background-attachment: fixed;
+      z-index: -2;
+      animation: bgScroll 30s linear infinite;
+      opacity: 0.9;
+    }
+
+    /* Flicker animation */
+    .flicker {
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
+        opacity: 1;
+      }
+
+      20%,
+      24%,
+      55% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes bgScroll {
+      0% {
+        background-position: center 0%;
+      }
+
+      100% {
+        background-position: center 100%;
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      html {
+        font-size: 10px;
+        /* ↑ Larger base font size for scaling */
+      }
+
+      #gameArea {
+        font-size: 1.2rem;
+        /* ↑ Bigger paragraph text inside game area */
+        padding: 1.6rem;
+        /* ↑ Extra space for breathing room */
+      }
+
+      a {
+        font-size: 1rem;
+        /* ↑ Link text size */
+        padding: 1rem 1.5rem;
+        /* ↑ More tappable button size */
+        line-height: 1.4;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        /* ↑ Headline size */
+      }
+    }
+  </style>
 <script>
 
 var embedDat = "%7B%22START%22:%5B%5D,%22SENIORDOC%22:%5B%5B%22I%20can't%20believe%20there%20is%20a%20private%20investigation%20right%20now%20looking%20into%20Dr.%20Medulla's%20death.%20Wasn't%20it%20deemed%20a%20suicide%20by%20the%20police?%20Now%20I'm%20forced%20to%20take%20time%20off%20work%20for%20this%20stupid%20case.%20On%20the%20bright%20side,%20now%20there's%20no%20one%20blackmailing%20me%20over%20the%20drug%20smuggling%20incident.%20Now%20that%20they're%20dead,%20I%20no%20longer%20need%20to%20look%20over%20my%20own%20shoulder.%20That%20reminds%20me%20I%20should%20message%20Nurse%20Bellum,%20to%20remind%20them%20they%20owe%20me%20for%20my%20silence.%22%5D,%5B%22%22%5D,%5B%22*This%20choice%20will%20have%20consequences%20in%20future%20rounds*%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Message%20Bellum%22,%22NURSER1%22%5D,%5B%22%22%5D,%5B%22Don't%20message%20Bellum%22,%22NURSER2%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22SENIORDOC%22,%22NURSER1%22:%5B%5B%22I%20messaged%20Bellum%20demanding%20they%20keep%20their%20mouth%20shut%20regarding%20the%20smuggling%20case.%20I%20can't%20afford%20for%20them%20to%20slip%20up%20because%20if%20they%20do%20I'll%20also%20be%20in%20the%20line%20of%20fire%20as%20a%20result.%22%5D,%5B%22%22%5D,%5B%22*Make%20sure%20to%20tell%20the%20DM%20you%20chose%20to%20bribe%20the%20nurse.*%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22NURSER2%22:%5B%5B%22I%20didn't%20message%20Bellum.%20If%20word%20got%20out%20I%20was%20blackmailing%20them,%20the%20PI%20might%20consider%20me%20a%20larger%20suspect%20as%20to%20why%20I'm%20trying%20to%20get%20the%20current%20%5C%22murder%5C%22%20case%20closed.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Courtyard%20for%20your%20tableau.%22%5D,%5B%22%22%5D%5D%7D";

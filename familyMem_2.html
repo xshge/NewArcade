@@ -5,12 +5,147 @@
       type="image/png" 
       href="favicon.png">
 <title>game</title>
-<style>
-	body {
-		margin:40px;
-		padding:40px;
-	}
-</style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: #e3e3e3;
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+      cursor: url('crosshair.cur'), crosshair;
+    }
+
+    /* Headline style */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d4f;
+      text-shadow: 0 0 10px #ff4d4f;
+    }
+
+    /* Main game area */
+    #gameArea {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(20, 20, 20, 0.85);
+      padding: 2rem;
+      border: 3px solid #ff4d4f;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #b80000;
+      color: #f8f8f8;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Interactive links */
+    a {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      font-size: 1rem;
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      background-color: #b30000;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 10px #ff1a1a;
+    }
+
+    /* Hover effect */
+    a:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff4d4f;
+    }
+
+    /* Background scroll animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hospital_dark_bg.png') center center / cover no-repeat,
+        radial-gradient(ellipse at center, #000000 0%, #121212 100%);
+      background-attachment: fixed;
+      z-index: -2;
+      animation: bgScroll 30s linear infinite;
+      opacity: 0.9;
+    }
+
+    /* Flicker animation */
+    .flicker {
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
+        opacity: 1;
+      }
+
+      20%,
+      24%,
+      55% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes bgScroll {
+      0% {
+        background-position: center 0%;
+      }
+
+      100% {
+        background-position: center 100%;
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      html {
+        font-size: 10px;
+        /* ↑ Larger base font size for scaling */
+      }
+
+      #gameArea {
+        font-size: 1.2rem;
+        /* ↑ Bigger paragraph text inside game area */
+        padding: 1.6rem;
+        /* ↑ Extra space for breathing room */
+      }
+
+      a {
+        font-size: 1rem;
+        /* ↑ Link text size */
+        padding: 1rem 1.5rem;
+        /* ↑ More tappable button size */
+        line-height: 1.4;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        /* ↑ Headline size */
+      }
+    }
+  </style>
 <script>
 
 var embedDat = "%7B%22START%22:%5B%5D,%22FAMILYMEM%22:%5B%5B%22I%20realized%20the%20gemstone%20on%20my%20ring%20is%20missing,%20it%20must%20have%20fallen%20out%20during%20the%20tussle%20with%20Medulla%20and%20I%20had.%20I%20have%20to%20retrieve%20that%20gem%20stone%20before%20someone%20else%20finds%20it.%20I%20don't%20want%20the%20world%20to%20see%20me%20as%20a%20murder.%20I%20went%20back%20to%20the%20hospital%20today%20hope%20to%20retrace%20my%20steps%20and%20find%20my%20lost%20gem.%20I%20looked%20through%20the%20courtyard,%20maybe%20it%20had%20somehow%20fallen%20from%20the%20roof%20and%20into%20one%20of%20the%20bushes%20that%20run%20around%20the%20hospital%20building.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Continue%20searching%22,%22SEARCH%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22FAMILYMEM%22,%22SEARCH%22:%5B%5B%22I%20kept%20searching%20and%20didn't%20find%20anything.%20When%20I%20was%20about%20to%20leave%20I%20saw%20the%20hospital's%20janitor%20leaving%20the%20front%20doors%20with%20a%20gem%20in%20their%20hand.%20I%20believe%20they're%20Mr.%20Brown,%20they%20were%20also%20apart%20of%20the%20investigation%20meeting.%20Should%20I%20leave%20a%20note%20in%20their%20cart%20to%20contact%20me%20about%20the%20gem.%20Maybe%20they%20will%20let%20me%20buy%20it%20off%20them.%22%5D,%5B%22%22%5D,%5B%22*This%20choice%20will%20have%20a%20lasting%20effect*%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Leave%20a%20note%22,%22NOTE%22%5D,%5B%22%22%5D,%5B%22Don't%20leave%20a%20note%22,%22NOT%22%5D,%5B%22%22%5D%5D,%22NOTE%22:%5B%5B%22I%20left%20a%20note%20inside%20of%20Mr.%20Brown's%20cart,%20hopefully%20they%20find%20it%20by%20the%20end%20of%20the%20day%20and%20contact%20me.%20I'm%20willing%20to%20pay%20a%20big%20some%20of%20money%20for%20it%20back.%22%5D,%5B%22%22%5D,%5B%22*Make%20sure%20to%20tell%20the%20DM%20you%20chose%20to%20leave%20a%20note%20in%20the%20cart.*%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22NOT%22:%5B%5B%22I%20didn't%20leave%20a%20note%20inside%20of%20Mr.%20Brown's%20cart.%20Since%20they%20are%20also%20apart%20of%20the%20on%20going%20investigation,%20I%20don't%20want%20them%20thinking%20I'm%20trying%20to%20hide%20information.%20Best%20to%20lay%20low%20and%20to%20not%20draw%20attention.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20second%20clue.%20Check%20the%20Courtyard%20for%20your%20tableau.%22%5D%5D%7D";

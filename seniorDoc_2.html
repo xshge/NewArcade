@@ -5,12 +5,147 @@
       type="image/png" 
       href="favicon.png">
 <title>game</title>
-<style>
-	body {
-		margin:40px;
-		padding:40px;
-	}
-</style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: #e3e3e3;
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+      cursor: url('crosshair.cur'), crosshair;
+    }
+
+    /* Headline style */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d4f;
+      text-shadow: 0 0 10px #ff4d4f;
+    }
+
+    /* Main game area */
+    #gameArea {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(20, 20, 20, 0.85);
+      padding: 2rem;
+      border: 3px solid #ff4d4f;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #b80000;
+      color: #f8f8f8;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Interactive links */
+    a {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      font-size: 1rem;
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      background-color: #b30000;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 10px #ff1a1a;
+    }
+
+    /* Hover effect */
+    a:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff4d4f;
+    }
+
+    /* Background scroll animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hospital_dark_bg.png') center center / cover no-repeat,
+        radial-gradient(ellipse at center, #000000 0%, #121212 100%);
+      background-attachment: fixed;
+      z-index: -2;
+      animation: bgScroll 30s linear infinite;
+      opacity: 0.9;
+    }
+
+    /* Flicker animation */
+    .flicker {
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
+        opacity: 1;
+      }
+
+      20%,
+      24%,
+      55% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes bgScroll {
+      0% {
+        background-position: center 0%;
+      }
+
+      100% {
+        background-position: center 100%;
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      html {
+        font-size: 10px;
+        /* ↑ Larger base font size for scaling */
+      }
+
+      #gameArea {
+        font-size: 1.2rem;
+        /* ↑ Bigger paragraph text inside game area */
+        padding: 1.6rem;
+        /* ↑ Extra space for breathing room */
+      }
+
+      a {
+        font-size: 1rem;
+        /* ↑ Link text size */
+        padding: 1rem 1.5rem;
+        /* ↑ More tappable button size */
+        line-height: 1.4;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        /* ↑ Headline size */
+      }
+    }
+  </style>
 <script>
 
 var embedDat = "%7B%22START%22:%5B%5D,%22SENIORDOC%22:%5B%5B%22I%20really%20don't%20understand%20the%20whole%20point%20of%20this%20investigation.%20Such%20a%20waste%20of%20my%20time,%20I%20rather%20be%20attending%20top%20golf%20with%20my%20friends%20then%20this.%20I%20did%20notice%20Dr.%20Dura's%20spouse%20is%20apart%20of%20this%20investigation.%20I%20think%20they%20had%20a%20relative%20that%20was%20admitted%20around%20a%20month%20ago,%20too.%20Maybe%20I%20should%20look%20into%20them.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Check%20medical%20records%22,%22RECORD%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22SENIORDOC%22,%22RECORD%22:%5B%5B%22I%20got%20my%20hands%20on%20Vic%20Brittle's%20records,%20they%20seem%20to%20have%20been%20with%20Kelly%20Brittle%20when%20they%20were%20admitted.%20It%20says%20they%20were%20discharged%20early%20by%20Dr.%20Medulla.%20If%20I%20recall%20correctly%20they%20ended%20up%20committing%20suicide%20shortly%20after%20being%20discharged.%20The%20Brittle%20family%20is%20currently%20trying%20to%20sue%20the%20hospital.%20I'll%20hold%20onto%20a%20copy%20of%20these%20reports%20in%20my%20office.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20second%20clue.%20Check%20the%20Senior%20Doctor%E2%80%99s%20Office%20for%20your%20tableau.%22%5D%5D%7D";

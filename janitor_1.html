@@ -5,12 +5,147 @@
       type="image/png" 
       href="favicon.png">
 <title>game</title>
-<style>
-	body {
-		margin:40px;
-		padding:40px;
-	}
-</style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: #e3e3e3;
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+      cursor: url('crosshair.cur'), crosshair;
+    }
+
+    /* Headline style */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d4f;
+      text-shadow: 0 0 10px #ff4d4f;
+    }
+
+    /* Main game area */
+    #gameArea {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(20, 20, 20, 0.85);
+      padding: 2rem;
+      border: 3px solid #ff4d4f;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #b80000;
+      color: #f8f8f8;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Interactive links */
+    a {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      font-size: 1rem;
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      background-color: #b30000;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 10px #ff1a1a;
+    }
+
+    /* Hover effect */
+    a:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff4d4f;
+    }
+
+    /* Background scroll animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hospital_dark_bg.png') center center / cover no-repeat,
+        radial-gradient(ellipse at center, #000000 0%, #121212 100%);
+      background-attachment: fixed;
+      z-index: -2;
+      animation: bgScroll 30s linear infinite;
+      opacity: 0.9;
+    }
+
+    /* Flicker animation */
+    .flicker {
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
+        opacity: 1;
+      }
+
+      20%,
+      24%,
+      55% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes bgScroll {
+      0% {
+        background-position: center 0%;
+      }
+
+      100% {
+        background-position: center 100%;
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      html {
+        font-size: 10px;
+        /* ↑ Larger base font size for scaling */
+      }
+
+      #gameArea {
+        font-size: 1.2rem;
+        /* ↑ Bigger paragraph text inside game area */
+        padding: 1.6rem;
+        /* ↑ Extra space for breathing room */
+      }
+
+      a {
+        font-size: 1rem;
+        /* ↑ Link text size */
+        padding: 1rem 1.5rem;
+        /* ↑ More tappable button size */
+        line-height: 1.4;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        /* ↑ Headline size */
+      }
+    }
+  </style>
 <script>
 
 var embedDat = "%7B%22START%22:%5B%5D,%22JANITOR%22:%5B%5B%22A%20private%20investigator%20contacted%20me%20and%20asked%20I%20come%20to%20their%20office%20today.%20I%20showed%20up%20and%20they%20were%20talking%20about%20how%20they%20are%20re-opening%20a%20case%20closed%20months%20ago.%20The%20death%20of%20Dr.%20C.%20Medulla%20whom%20worked%20at%20the%20hospital%20I%20also%20work%20currently%20as%20a%20janitor.%20I%20was%20informed%20that%20originally%20the%20police%20deemed%20it%20as%20a%20suicide,%20but%20the%20private%20investigators%20were%20hired%20because%20someone%20thought%20there%20was%20foul%20play%20involved.%20I%20went%20home%20afterwards%20and%20took%20sometime%20to%20recall%20events%20that%20happened%20a%20month%20ago%20at%20the%20hospital.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Recalling%20events%22,%22RECALL%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22JANITOR%22,%22RECALL%22:%5B%5B%22I%20remember%20a%20situation%20that%20happened%20at%20the%20hospital%20a%20month%20ago.%20I%20was%20moving%20my%20equipment%20through%20the%20parking%20lot%20and%20it%20was%20a%20quiet%20afternoon%20outside.%20All%20I%20heard%20was%20a%20loud%20scream%20from%20above%20followed%20by%20a%20loud%20thud%20from%20the%20backside%20of%20the%20hospital.%20I%20ran%20over%20to%20investigate%20and%20as%20I%20turned%20the%20corner%20I%20see%20the%20lifeless%20body%20of%20a%20hospital%20worker%20on%20the%20concrete%20pavement.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Courtyard%20for%20your%20tableau.%22%5D%5D%7D";

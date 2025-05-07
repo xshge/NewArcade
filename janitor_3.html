@@ -1,0 +1,134 @@
+﻿<!--save as html file-->
+<html  dir="auto" >
+<head>
+<link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
+<title>game</title>
+<style>
+	body {
+		margin:40px;
+		padding:40px;
+	}
+</style>
+<script>
+
+var embedDat = "%7B%22START%22:%5B%5D,%22JANITOR%22:%5B%5B%22Today%20I%20was%20assigned%20to%20clean%20the%20roof,%20a%20recent%20storm%20blew%20a%20bunch%20of%20leaves%20on%20to%20the%20roof%20top%20and%20now%20it%20needs%20cleaning.%20I%20still%20can't%20understand%20why%20I'm%20apart%20of%20this%20besides%20the%20fact%20I%20witnessed%20the%20death.%20I%20have%20nothing%20to%20do%20with%20this,%20I%20want%20to%20live%20a%20peaceful%20life.%22%5D,%5B%22%22%5D,%5B%22Go%20to%20the%20roof%22,%22ROOF%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22JANITOR%22,%22ROOF%22:%5B%5B%22The%20roof%20doesn't%20look%20that%20messy,%20normally%20I%20might%20end%20up%20finding%20a%20bunch%20of%20torn%20of%20branches%20and%20this%20one%20time%20a%20fish.%20That%20poor%20fish,%20it%20was%20still%20flailing%20holding%20on%20for%20deer%20life.%20After%20I%20clean%20this%20all%20up%20I'll%20head%20downstairs%20to%20put%20my%20equipment%20away%20and%20head%20out%20for%20my%20lunch%20break.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20third%20clue.%20Check%20the%20Courtyard%20for%20your%20tableau.%22%5D%5D%7D";
+
+var gameState = null;
+
+
+var aurl = document.createElement('a');
+function qualifyURL(url) {
+ aurl.href = url;
+ return aurl.href;
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function strip_http(url) {
+   url = url.replace(/^https?:\/\//,'');
+   return url;
+}
+
+function startSection(){
+  if (gameState==null){
+    return "";
+  }
+  var param = getParameterByName("section");
+
+  var result = "__STARTSECTION__" in gameState ? gameState["__STARTSECTION__"] : "START";
+  if (param.length>0){
+    result=param;
+  }
+
+  return result;
+}
+
+function init(){
+	if (embedDat.length>0 && embedDat[0]!=='_'){
+		var dat = decodeURI(embedDat);
+		gameState = JSON.parse(dat);
+    var startKey = startSection();
+		goTo(startKey);
+		return;
+	}
+
+var id = getParameterByName("p").replace(/[\\\/]/,"");
+  if (id===null||id.length===0) {
+    console.log("No ID specified in URL.")
+    return;
+  }
+
+  var githubURL = 'https://api.github.com/gists/'+id;
+
+  var githubHTTPClient = new XMLHttpRequest();
+  githubHTTPClient.open('GET', githubURL);
+  githubHTTPClient.onreadystatechange = function() {
+    if(githubHTTPClient.readyState!=4) {
+      return;
+    }   
+    var result = JSON.parse(githubHTTPClient.responseText);
+    if (githubHTTPClient.status===403) {
+      console.log(result.message);
+    } else if (githubHTTPClient.status!==200&&githubHTTPClient.status!==201) {
+      console.log("HTTP Error "+ githubHTTPClient.status + ' - ' + githubHTTPClient.statusText);
+    }
+    var result = JSON.parse(githubHTTPClient.responseText);
+    var code=result["files"]["game.txt"]["content"];
+    console.log(code);
+
+	gameState = JSON.parse(code);
+	goTo(startSection());
+  }
+  githubHTTPClient.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  githubHTTPClient.send();
+
+	goTo(startSection());
+}	
+
+function escapeHtmlEntities (str) {
+  if (typeof jQuery !== 'undefined') {
+    // Create an empty div to use as a container,
+    // then put the raw text in and get the HTML
+    // equivalent out.
+    return jQuery('<div/>').text(str).html();
+  }
+
+  // No jQuery, so use string replace.
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;')
+    .replace(/"/g, '&quot;');
+}
+
+function goTo(targetState){
+  if (gameState==null){
+    return;
+  }
+	var curstate = gameState[targetState];
+	var gameArea = document.getElementById("gameArea");
+	var str = "";
+	for (var i=0;i<curstate.length;i++){
+		var l = curstate[i];
+		if (l.length==1){			
+			str+=escapeHtmlEntities(l[0])+"<br>";
+		} else if (l.length==2){
+			str+='<a href="#" onclick="goTo(\''+escapeHtmlEntities(l[1])+'\');return false;">'+escapeHtmlEntities(l[0])+'</a><br>';
+		}	
+	}
+	gameArea.innerHTML=str;
+}
+
+</script>
+</head>
+<body onload="init();" dir="auto">
+<div id="gameArea" dir="auto"></div>
+</body>
+</html>

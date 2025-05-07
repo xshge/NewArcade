@@ -1,0 +1,134 @@
+﻿<!--save as html file-->
+<html  dir="auto" >
+<head>
+<link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
+<title>game</title>
+<style>
+	body {
+		margin:40px;
+		padding:40px;
+	}
+</style>
+<script>
+
+var embedDat = "%7B%22START%22:%5B%5D,%22NURSE%22:%5B%5B%22I%20messaged%20a%20private%20investigator%20a%20week%20ago%20and%20today%20they%20brought%20in%20a%20bunch%20of%20people%20they%20suspect%20of%20being%20the%20murderer.%20I%20just%20want%20to%20get%20to%20the%20bottom%20of%20the%20situation,%20because%20I%20seriously%20doubt%20Dr.%20Medulla%20would%20commit%20suicide.%20I%20was%20so%20close%20to%20them.%20If%20they%20were%20going%20through%20something%20terrible%20enough%20to%20warrant%20suicide,%20they%20would%20have%20told%20me%20about%20it.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Continue%22,%22OFFICE%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22NURSE%22,%22OFFICE%22:%5B%5B%22I'm%20hoping%20todays%20initial%20meeting%20allows%20me%20to%20get%20some%20further%20information%20regarding%20the%20death.%20Maybe%20the%20private%20investigators%20found%20something%20while%20they%20were%20looking%20for%20suspects?%20For%20now%20all%20I%20can%20do%20is%20hope%20for%20justice%20to%20be%20served,%20and%20the%20truth%20to%20come%20out.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Reception%20Area%20for%20your%20tableau.%22%5D%5D%7D";
+
+var gameState = null;
+
+
+var aurl = document.createElement('a');
+function qualifyURL(url) {
+ aurl.href = url;
+ return aurl.href;
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function strip_http(url) {
+   url = url.replace(/^https?:\/\//,'');
+   return url;
+}
+
+function startSection(){
+  if (gameState==null){
+    return "";
+  }
+  var param = getParameterByName("section");
+
+  var result = "__STARTSECTION__" in gameState ? gameState["__STARTSECTION__"] : "START";
+  if (param.length>0){
+    result=param;
+  }
+
+  return result;
+}
+
+function init(){
+	if (embedDat.length>0 && embedDat[0]!=='_'){
+		var dat = decodeURI(embedDat);
+		gameState = JSON.parse(dat);
+    var startKey = startSection();
+		goTo(startKey);
+		return;
+	}
+
+var id = getParameterByName("p").replace(/[\\\/]/,"");
+  if (id===null||id.length===0) {
+    console.log("No ID specified in URL.")
+    return;
+  }
+
+  var githubURL = 'https://api.github.com/gists/'+id;
+
+  var githubHTTPClient = new XMLHttpRequest();
+  githubHTTPClient.open('GET', githubURL);
+  githubHTTPClient.onreadystatechange = function() {
+    if(githubHTTPClient.readyState!=4) {
+      return;
+    }   
+    var result = JSON.parse(githubHTTPClient.responseText);
+    if (githubHTTPClient.status===403) {
+      console.log(result.message);
+    } else if (githubHTTPClient.status!==200&&githubHTTPClient.status!==201) {
+      console.log("HTTP Error "+ githubHTTPClient.status + ' - ' + githubHTTPClient.statusText);
+    }
+    var result = JSON.parse(githubHTTPClient.responseText);
+    var code=result["files"]["game.txt"]["content"];
+    console.log(code);
+
+	gameState = JSON.parse(code);
+	goTo(startSection());
+  }
+  githubHTTPClient.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  githubHTTPClient.send();
+
+	goTo(startSection());
+}	
+
+function escapeHtmlEntities (str) {
+  if (typeof jQuery !== 'undefined') {
+    // Create an empty div to use as a container,
+    // then put the raw text in and get the HTML
+    // equivalent out.
+    return jQuery('<div/>').text(str).html();
+  }
+
+  // No jQuery, so use string replace.
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;')
+    .replace(/"/g, '&quot;');
+}
+
+function goTo(targetState){
+  if (gameState==null){
+    return;
+  }
+	var curstate = gameState[targetState];
+	var gameArea = document.getElementById("gameArea");
+	var str = "";
+	for (var i=0;i<curstate.length;i++){
+		var l = curstate[i];
+		if (l.length==1){			
+			str+=escapeHtmlEntities(l[0])+"<br>";
+		} else if (l.length==2){
+			str+='<a href="#" onclick="goTo(\''+escapeHtmlEntities(l[1])+'\');return false;">'+escapeHtmlEntities(l[0])+'</a><br>';
+		}	
+	}
+	gameArea.innerHTML=str;
+}
+
+</script>
+</head>
+<body onload="init();" dir="auto">
+<div id="gameArea" dir="auto"></div>
+</body>
+</html>

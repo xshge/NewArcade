@@ -1,0 +1,134 @@
+﻿<!--save as html file-->
+<html  dir="auto" >
+<head>
+<link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
+<title>game</title>
+<style>
+	body {
+		margin:40px;
+		padding:40px;
+	}
+</style>
+<script>
+
+var embedDat = "%7B%22START%22:%5B%5D,%22JANITOR%22:%5B%5B%22A%20private%20investigator%20contacted%20me%20and%20asked%20I%20come%20to%20their%20office%20today.%20I%20showed%20up%20and%20they%20were%20talking%20about%20how%20they%20are%20re-opening%20a%20case%20closed%20months%20ago.%20The%20death%20of%20Dr.%20C.%20Medulla%20whom%20worked%20at%20the%20hospital%20I%20also%20work%20currently%20as%20a%20janitor.%20I%20was%20informed%20that%20originally%20the%20police%20deemed%20it%20as%20a%20suicide,%20but%20the%20private%20investigators%20were%20hired%20because%20someone%20thought%20there%20was%20foul%20play%20involved.%20I%20went%20home%20afterwards%20and%20took%20sometime%20to%20recall%20events%20that%20happened%20a%20month%20ago%20at%20the%20hospital.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Recalling%20events%22,%22RECALL%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22JANITOR%22,%22RECALL%22:%5B%5B%22I%20remember%20a%20situation%20that%20happened%20at%20the%20hospital%20a%20month%20ago.%20I%20was%20moving%20my%20equipment%20through%20the%20parking%20lot%20and%20it%20was%20a%20quiet%20afternoon%20outside.%20All%20I%20heard%20was%20a%20loud%20scream%20from%20above%20followed%20by%20a%20loud%20thud%20from%20the%20backside%20of%20the%20hospital.%20I%20ran%20over%20to%20investigate%20and%20as%20I%20turned%20the%20corner%20I%20see%20the%20lifeless%20body%20of%20a%20hospital%20worker%20on%20the%20concrete%20pavement.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20first%20clue.%20Check%20the%20Courtyard%20for%20your%20tableau.%22%5D%5D%7D";
+
+var gameState = null;
+
+
+var aurl = document.createElement('a');
+function qualifyURL(url) {
+ aurl.href = url;
+ return aurl.href;
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+function strip_http(url) {
+   url = url.replace(/^https?:\/\//,'');
+   return url;
+}
+
+function startSection(){
+  if (gameState==null){
+    return "";
+  }
+  var param = getParameterByName("section");
+
+  var result = "__STARTSECTION__" in gameState ? gameState["__STARTSECTION__"] : "START";
+  if (param.length>0){
+    result=param;
+  }
+
+  return result;
+}
+
+function init(){
+	if (embedDat.length>0 && embedDat[0]!=='_'){
+		var dat = decodeURI(embedDat);
+		gameState = JSON.parse(dat);
+    var startKey = startSection();
+		goTo(startKey);
+		return;
+	}
+
+var id = getParameterByName("p").replace(/[\\\/]/,"");
+  if (id===null||id.length===0) {
+    console.log("No ID specified in URL.")
+    return;
+  }
+
+  var githubURL = 'https://api.github.com/gists/'+id;
+
+  var githubHTTPClient = new XMLHttpRequest();
+  githubHTTPClient.open('GET', githubURL);
+  githubHTTPClient.onreadystatechange = function() {
+    if(githubHTTPClient.readyState!=4) {
+      return;
+    }   
+    var result = JSON.parse(githubHTTPClient.responseText);
+    if (githubHTTPClient.status===403) {
+      console.log(result.message);
+    } else if (githubHTTPClient.status!==200&&githubHTTPClient.status!==201) {
+      console.log("HTTP Error "+ githubHTTPClient.status + ' - ' + githubHTTPClient.statusText);
+    }
+    var result = JSON.parse(githubHTTPClient.responseText);
+    var code=result["files"]["game.txt"]["content"];
+    console.log(code);
+
+	gameState = JSON.parse(code);
+	goTo(startSection());
+  }
+  githubHTTPClient.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+  githubHTTPClient.send();
+
+	goTo(startSection());
+}	
+
+function escapeHtmlEntities (str) {
+  if (typeof jQuery !== 'undefined') {
+    // Create an empty div to use as a container,
+    // then put the raw text in and get the HTML
+    // equivalent out.
+    return jQuery('<div/>').text(str).html();
+  }
+
+  // No jQuery, so use string replace.
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/>/g, '&gt;')
+    .replace(/</g, '&lt;')
+    .replace(/"/g, '&quot;');
+}
+
+function goTo(targetState){
+  if (gameState==null){
+    return;
+  }
+	var curstate = gameState[targetState];
+	var gameArea = document.getElementById("gameArea");
+	var str = "";
+	for (var i=0;i<curstate.length;i++){
+		var l = curstate[i];
+		if (l.length==1){			
+			str+=escapeHtmlEntities(l[0])+"<br>";
+		} else if (l.length==2){
+			str+='<a href="#" onclick="goTo(\''+escapeHtmlEntities(l[1])+'\');return false;">'+escapeHtmlEntities(l[0])+'</a><br>';
+		}	
+	}
+	gameArea.innerHTML=str;
+}
+
+</script>
+</head>
+<body onload="init();" dir="auto">
+<div id="gameArea" dir="auto"></div>
+</body>
+</html>

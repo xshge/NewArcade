@@ -5,12 +5,147 @@
       type="image/png" 
       href="favicon.png">
 <title>game</title>
-<style>
-	body {
-		margin:40px;
-		padding:40px;
-	}
-</style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap');
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      color: #e3e3e3;
+      padding: 2rem;
+      text-align: center;
+      background: #000;
+      overflow: hidden;
+      cursor: url('crosshair.cur'), crosshair;
+    }
+
+    /* Headline style */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d4f;
+      text-shadow: 0 0 10px #ff4d4f;
+    }
+
+    /* Main game area */
+    #gameArea {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin: 2rem auto;
+      max-width: 800px;
+      background: rgba(20, 20, 20, 0.85);
+      padding: 2rem;
+      border: 3px solid #ff4d4f;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #b80000;
+      color: #f8f8f8;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Interactive links */
+    a {
+      display: inline-block;
+      margin: 1rem 0.5rem;
+      font-size: 1rem;
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      background-color: #b30000;
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 10px #ff1a1a;
+    }
+
+    /* Hover effect */
+    a:hover {
+      background-color: #e60000;
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff4d4f;
+    }
+
+    /* Background scroll animation */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hospital_dark_bg.png') center center / cover no-repeat,
+        radial-gradient(ellipse at center, #000000 0%, #121212 100%);
+      background-attachment: fixed;
+      z-index: -2;
+      animation: bgScroll 30s linear infinite;
+      opacity: 0.9;
+    }
+
+    /* Flicker animation */
+    .flicker {
+      animation: flicker 1.5s infinite;
+    }
+
+    @keyframes flicker {
+
+      0%,
+      18%,
+      22%,
+      25%,
+      53%,
+      57%,
+      100% {
+        opacity: 1;
+      }
+
+      20%,
+      24%,
+      55% {
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes bgScroll {
+      0% {
+        background-position: center 0%;
+      }
+
+      100% {
+        background-position: center 100%;
+      }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      html {
+        font-size: 10px;
+        /* ↑ Larger base font size for scaling */
+      }
+
+      #gameArea {
+        font-size: 1.2rem;
+        /* ↑ Bigger paragraph text inside game area */
+        padding: 1.6rem;
+        /* ↑ Extra space for breathing room */
+      }
+
+      a {
+        font-size: 1rem;
+        /* ↑ Link text size */
+        padding: 1rem 1.5rem;
+        /* ↑ More tappable button size */
+        line-height: 1.4;
+      }
+
+      h1 {
+        font-size: 2.2rem;
+        /* ↑ Headline size */
+      }
+    }
+  </style>
 <script>
 
 var embedDat = "%7B%22START%22:%5B%5D,%22FAMILYMEM%22:%5B%5B%22Today%20I'm%20visiting%20my%20husband,%20Dr.%20Dura%20who%20works%20a%20the%20hospital.%20He%20keeps%20telling%20me%20how%20the%20hospital%20has%20become%20so%20busy%20ever%20since%20Dr.%20Brum%20got%20pulled%20out%20for%20the%20investigation.%20Hopefully%20all%20this%20stressing%20about%20the%20investigation%20hasn't%20caused%20wrinkles%20to%20appear%20on%20my%20face.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22Go%20to%20the%20hospital%22,%22HOSPITAL%22%5D,%5B%22%22%5D%5D,%22__STARTSECTION__%22:%22FAMILYMEM%22,%22HOSPITAL%22:%5B%5B%22I%20went%20up%20to%20the%20reception%20desk%20asking%20for%20him,%20they%20said%20he%20is%20still%20busy%20right%20now.%20So%20I'm%20just%20going%20to%20be%20waiting%20outside%20in%20the%20courtyard%20for%20him%20then,%20what%20a%20sunny%20day%20it%20is.%22%5D,%5B%22%22%5D,%5B%22%22%5D,%5B%22End%22,%22END%22%5D,%5B%22%22%5D%5D,%22END%22:%5B%5B%22DM:%20This%20wraps%20up%20your%20fourth%20clue.%20Check%20the%20Courtyard%20for%20your%20tableau.%22%5D%5D%7D";
